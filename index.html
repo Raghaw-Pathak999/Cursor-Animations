@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursor sencer</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: #000000;
+            cursor: none;
+        }
+
+        .main {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .main h1 {
+            color: #30e3c8;
+            font-size: 65px;
+        }
+
+        h2 {
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            background-color: #e59832;
+            text-align: white;
+            padding: 10px 35px;
+            border-radius: 15px;
+            box-shadow: 4px 3px 4px 0 red;
+        }
+
+        h2:hover {
+            background-color: #49b41a;
+            scale: 1.1;
+
+        }
+
+        .Cursor {
+            z-index: 333;
+            position: fixed;
+            background: #f6ff00;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            pointer-events: none;
+            box-shadow: 0 0 0 #26e867, 0 0 50px #2696E8, 0 0 100px #2696E8;
+            transform: translate(-50%, -50%);
+            animation: colors 5s infinite;
+            display: none;
+        }
+
+        @keyframes colors {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        .Cursor:before {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #ff0000;
+            opacity: 0.5;
+            transform: translate(-30%, 30%);
+            margin-top: -12px;
+            margin-left: 2.5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="Cursor"></div>
+
+    <section class="main">
+        <h1>Cursor Animations</h1>
+        <h2>Button</h2>
+    </section>
+
+</body>
+<script>
+    const pointer = document.querySelector('.Cursor');
+    let timeOut;
+
+    document.addEventListener('mousemove', (e) => {
+        let x = e.pageX;
+        let y = e.pageY;
+
+        pointer.style.top = y + 'px';
+        pointer.style.left = x + 'px';
+        pointer.style.display = 'block';
+
+        function mouseStopped() {
+            pointer.style.display = 'none';
+        }
+
+        clearTimeout(timeOut);
+        timeOut = setTimeout(mouseStopped, 500);
+
+    });
+
+    document.addEventListener('mouseout', () => {
+        pointer.style.display = 'none';
+    });
+</script>
+
+</html>
